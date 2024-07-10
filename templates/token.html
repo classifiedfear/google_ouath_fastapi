@@ -1,0 +1,74 @@
+<script>
+    function send(){
+        var req = new XMLHttpRequest();
+        req.onreadystatechange = function() {
+            if (req.readyState === 4) {
+                console.log(req.response);
+                if (req.response["result"] === true) {
+                    window.localStorage.setItem('jwt', req.response["access_token"]);
+                    window.localStorage.setItem('refresh', req.response["refresh_token"]);
+                }
+            }
+        }
+        req.withCredentials = true;
+        req.responseType = 'json';
+        req.open("get", "/auth/auth_google?"+window.location.search.substr(1), true);
+        req.send("");
+
+    }
+    </script>
+
+<!DOCTYPE>
+<html>
+    <head>
+        <title>Token Page</title>
+        <link rel="stylesheet" href="{{ url_for('static', path='css/style.css') }}"/>
+    </head>
+    <body>
+        <div class="container">
+            <div class="header">
+                <button class="google-btn" onClick="send()">
+                    <span class="btn-text">Get FastAPI JWT Token</span>
+                </button>
+                <button class="google-btn" onClick='fetch("http://127.0.0.1:7000/api/unprotected").then(
+                    (r)=>r.json()).then((msg)=>{console.log(msg)});'>
+                    <span class="btn-text">Call Unprotected API</span>
+                </button>
+                <button class="google-btn" onClick='fetch("http://127.0.0.1:7000/api/protected").then(
+                    (r)=>r.json()).then((msg)=>{console.log(msg)});'>
+                    <span class="btn-text">Call Protected API without JWT</span>
+                </button>
+                <button class="google-btn" onClick='fetch("http://127.0.0.1:7000/api/protected",{
+                    headers:{
+                        "Authorization": "Bearer " + window.localStorage.getItem("jwt")
+                    },
+                }).then((r)=>r.json()).then((msg)=>{console.log(msg)});'>
+                    <span class="btn-text">Call Protected API wit JWT</span>
+                </button>
+                <button class="google-btn" onClick='fetch("http://127.0.0.1:7000/auth/refresh",{
+                    method: "POST",
+                    headers:{
+                        "Authorization": "Bearer " + window.localStorage.getItem("jwt")
+                    },
+                    body:JSON.stringify({
+                        grant_type:\"refresh_token\",
+                        refresh_token:window.localStorage.getItem(\"refresh\")
+                        })
+                }).then((r)=>r.json()).then((msg)=>{
+                    console.log(msg);
+                    if (msg["result"] === true) {
+                        window.localStorage.setItem("jwt", msg["access_token"]);
+                    }
+                    });'>
+                <span class="btn-text">Refresh</span>
+                </button>
+                <button class="google-btn">
+                    <a href="http://127.0.0.1:7000/">
+                        <span class="btn-text">Homepage</span>
+                    </a>
+                </button>
+            </div>
+        </div>
+    </body>
+</html>
+
