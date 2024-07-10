@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 
-from sub_apps.api_app.routers.api_router import ApiRouter
+from src.sub_apps.api_app.routers.api_router import ApiRouter
 
 routers = [ApiRouter()]
 

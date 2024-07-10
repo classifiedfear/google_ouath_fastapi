@@ -4,7 +4,7 @@ from starlette.middleware.sessions import SessionMiddleware
 from authlib.integrations.starlette_client import OAuth
 
 
-from sub_apps.auth_app.routers.auth_router import AuthRouter
+from src.sub_apps.auth_app.routers.auth_router import AuthRouter
 
 starlette_config = Config("oauth_with_fastapi_variables.env")
 oauth = OAuth(starlette_config)

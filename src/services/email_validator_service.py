@@ -1,7 +1,7 @@
 from typing import Any, Dict
 
 
-from sub_apps.auth_app.exceptions import CREDENTIALS_EXCEPTION
+from src.sub_apps.auth_app.exceptions import CREDENTIALS_EXCEPTION
 
 FAKE_DB = {
     "igorek9960@gmail.com": {"name": "Ihor Annenko"},

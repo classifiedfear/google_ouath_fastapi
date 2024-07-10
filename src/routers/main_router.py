@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Request
 from fastapi.templating import Jinja2Templates
 
-from fake_db.db import get_last_user_info
+from src.fake_db.db import get_last_user_info
 
 
 class MainRouter:

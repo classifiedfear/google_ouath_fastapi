@@ -1,9 +1,9 @@
 from fastapi import APIRouter, Depends
 from fastapi.responses import HTMLResponse, JSONResponse
 
-from dependencies.services import OAUTH2, JWT_SERVICE
-from email_validator_service import get_current_user_email
-from fake_db.db import get_last_user_info
+from src.dependencies.services import OAUTH2, JWT_SERVICE
+from src.services.email_validator_service import get_current_user_email
+from src.fake_db.db import get_last_user_info
 
 
 class ApiRouter:

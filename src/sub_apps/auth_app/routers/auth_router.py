@@ -4,10 +4,10 @@ from fastapi import APIRouter, Request
 from fastapi.responses import JSONResponse, RedirectResponse
 from authlib.integrations.starlette_client import OAuth
 
-from email_validator_service import valid_email_from_db
-from sub_apps.auth_app.exceptions import CREDENTIALS_EXCEPTION
-from dependencies.services import JWT_SERVICE
-from fake_db.db import add_blacklist_token, add_user_info, remove_user_info
+from src.services.email_validator_service import valid_email_from_db
+from src.sub_apps.auth_app.exceptions import CREDENTIALS_EXCEPTION
+from src.dependencies.services import JWT_SERVICE
+from src.fake_db.db import add_blacklist_token, add_user_info, remove_user_info
 
 
 class AuthRouter:

@@ -5,8 +5,8 @@ from fastapi import Depends
 from fastapi.security import OAuth2PasswordBearer
 
 
-from jwtoken import JWTService
-from settings import Settings
+from src.services.jwt_service import JWTService
+from src.settings import Settings
 
 
 @lru_cache

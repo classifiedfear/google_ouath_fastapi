@@ -3,7 +3,7 @@ from datetime import datetime, timedelta, timezone
 from typing import Any, Dict
 import jwt
 
-from settings import Settings
+from src.settings import Settings
 
 
 class JWTService:
