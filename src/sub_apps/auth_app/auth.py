@@ -1,12 +1,11 @@
 from fastapi import FastAPI
 from starlette.config import Config
-from starlette.middleware.sessions import SessionMiddleware
 from authlib.integrations.starlette_client import OAuth
 
 
-from src.sub_apps.auth_app.routers.auth_router import AuthRouter
+from src.sub_apps.auth_app.router_controllers.auth_router_controller import AuthRouterController
 
-starlette_config = Config("oauth_with_fastapi_variables.env")
+starlette_config = Config("src/oauth_with_fastapi_variables.env")
 oauth = OAuth(starlette_config)
 oauth.register(
     name="google",
@@ -16,11 +15,9 @@ oauth.register(
     },
 )
 
-routers = [AuthRouter(oauth)]
+routers = [AuthRouterController(oauth)]
 
 auth_app = FastAPI()
-auth_app.add_middleware(SessionMiddleware, secret_key="c")
-
 
 for router in routers:
     auth_app.include_router(router.router)
