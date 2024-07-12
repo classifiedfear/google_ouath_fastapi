@@ -4,7 +4,8 @@ from fastapi.responses import RedirectResponse
 from authlib.integrations.starlette_client import OAuth
 
 from src.router_controllers.abstract_router_controller import AbstractRouterController
-from src.dependencies.services import SETTINGS
+from src.settings import SETTINGS
+
 
 
 class AuthRouterController(AbstractRouterController):
@@ -17,8 +18,8 @@ class AuthRouterController(AbstractRouterController):
         self._router.add_api_route("/auth_google", self._auth_google, methods=["GET"])
         self._router.add_api_route("/logout", self._logout, methods=["GET"])
 
-    async def _login_google(self, request: Request, settings: SETTINGS):
-        return await self._oauth.google.authorize_redirect(request, settings.FRONTEND_URL)
+    async def _login_google(self, request: Request):
+        return await self._oauth.google.authorize_redirect(request, SETTINGS.FRONTEND_URL)
 
     async def _logout(self, request: Request):
         request.session.pop("user", None)

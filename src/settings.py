@@ -7,3 +7,6 @@ class Settings(BaseSettings):
     SECRET_KEY: str
     FRONTEND_URL: str
     model_config = SettingsConfigDict(env_file="src/oauth_with_fastapi_variables.env", env_file_encoding="utf-8")
+
+
+SETTINGS = Settings()
